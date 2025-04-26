@@ -1,906 +1,1163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Career Roadmaps</title>
+    <title>أكاديمية التميز الدراسي</title>
     <style>
         :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --accent: #4895ef;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #2ecc71;
+            --break-color: #e63946;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Tajawal', sans-serif;
         }
 
         body {
             background-color: #f5f7fa;
-            color: var(--dark);
+            color: var(--dark-color);
             line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
         }
 
-        h1 {
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 10px;
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .roadmaps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            padding: 3rem 0;
-        }
-
-        .roadmap-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .roadmap-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-header {
-            padding: 1.5rem;
-            color: white;
-            position: relative;
-        }
-
-        .card-header h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-header p {
-            opacity: 0.9;
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.05));
-            z-index: 1;
-        }
-
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .skills-list {
-            list-style: none;
-            margin-bottom: 1.5rem;
-        }
-
-        .skills-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-        }
-
-        .skills-list li:last-child {
-            border-bottom: none;
-        }
-
-        .skills-list li::before {
-            content: '✓';
-            color: var(--success);
-            margin-right: 0.5rem;
-            font-weight: bold;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.7rem 1.5rem;
-            background: var(--primary);
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn:hover {
-            background: var(--secondary);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+        .tabs {
             display: flex;
             justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
+            margin: 30px 0;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            position: relative;
             transition: all 0.3s ease;
         }
 
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
+        .tab-btn.active {
+            color: var(--primary-color);
+            font-weight: bold;
         }
 
-        .modal-content {
-            background: white;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 2rem;
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Study Timer Styles */
+        .timer-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .timer-display {
+            font-size: 5rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--primary-color);
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .timer-settings {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .setting {
+            text-align: center;
+        }
+
+        .setting label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .setting input {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .timer-status {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .study-status {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+
+        .break-status {
+            background-color: rgba(230, 57, 70, 0.1);
+            color: var(--break-color);
+        }
+
+        .sound-control {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Mind Map Styles */
+        .mindmap-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .mindmap-area-container {
             position: relative;
-            transform: translateY(-50px);
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .mindmap-area {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: 0 0;
             transition: transform 0.3s ease;
         }
 
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--dark);
-        }
-
-        .roadmap-steps {
-            margin-top: 1.5rem;
-        }
-
-        .roadmap-step {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .roadmap-step:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .roadmap-step h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
+        .mindmap-tools {
             display: flex;
-            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
-        .roadmap-step h3 span {
-            background: var(--primary);
-            color: white;
-            width: 30px;
-            height: 30px;
+        .mindmap-node {
+            position: absolute;
+            min-width: 120px;
+            padding: 12px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: move;
+            user-select: none;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .mindmap-node:hover {
+            border-color: var(--accent-color);
+        }
+
+        .mindmap-node.selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+
+        .node-text {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            resize: none;
+            font-family: inherit;
+            min-height: 60px;
+        }
+
+        .node-actions {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .node-btn {
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            display: inline-flex;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 0.75rem;
-            font-size: 0.9rem;
-        }
-
-        .step-content {
-            padding-left: 2.5rem;
-        }
-
-        .step-content ul {
-            list-style-position: inside;
-            margin-top: 0.5rem;
-        }
-
-        .step-content ul li {
-            margin-bottom: 0.25rem;
-        }
-
-        .tools {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-        }
-
-        .tool-tag {
-            background: #e9ecef;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
             font-size: 0.8rem;
-            color: var(--dark);
+            transition: all 0.2s ease;
+        }
+
+        .node-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .add-child-btn {
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .delete-node-btn {
+            color: var(--break-color);
+            border: 1px solid var(--break-color);
+        }
+
+        /* New Connection Styles */
+        .mindmap-connection {
+            position: absolute;
+            height: 3px;
+            background-color: var(--primary-color);
+            transform-origin: left center;
+            z-index: -1;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .mindmap-connection.highlight {
+            background-color: var(--accent-color);
+            height: 4px;
+            opacity: 1;
+        }
+
+        .connection-handle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .connection-handle:hover {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.3);
+        }
+
+        .node-connector {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            z-index: 5;
+            transition: all 0.2s ease;
+        }
+
+        .node-connector:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .node-connector.right {
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .node-connector.left {
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         footer {
-            background: var(--dark);
-            color: white;
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
+            padding: 20px;
+            margin-top: 50px;
+            background-color: var(--dark-color);
+            color: white;
+            border-radius: 20px 20px 0 0;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .roadmaps-container {
-                grid-template-columns: 1fr;
+            .timer-display {
+                font-size: 3.5rem;
             }
-            
-            .modal-content {
-                width: 95%;
-                padding: 1.5rem;
+
+            .timer-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mindmap-area-container {
+                height: 400px;
             }
         }
+
+        /* Animation for timer */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 1s infinite;
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- jsPDF library for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1> Career Roadmaps</h1>
-            <p class="subtitle">Structured learning paths for modern tech careers. Click on any roadmap to explore the detailed steps.</p>
+            <h1>أكاديمية التميز الدراسي</h1>
+            <p>أدوات لتحسين إنتاجيتك وتركيزك في الدراسة</p>
         </div>
     </header>
 
     <div class="container">
-        <div class="roadmaps-container">
-            <!-- DevOps Roadmap Card -->
-            <div class="roadmap-card" onclick="openModal('devops')">
-                <div class="card-header" style="background: linear-gradient(135deg, #3a0ca3, #7209b7);">
-                    <h2>DevOps Engineer</h2>
-                    <p>Bridge development and operations with automation</p>
-                </div>
-                <div class="card-body">
-                    <ul class="skills-list">
-                        <li>CI/CD Pipelines</li>
-                        <li>Containerization</li>
-                        <li>Cloud Platforms</li>
-                        <li>Infrastructure as Code</li>
-                    </ul>
-                    <button class="btn">View Roadmap</button>
-                </div>
-            </div>
-
-            <!-- AI Engineer Roadmap Card -->
-            <div class="roadmap-card" onclick="openModal('ai')">
-                <div class="card-header" style="background: linear-gradient(135deg, #f72585, #b5179e);">
-                    <h2>AI Engineer</h2>
-                    <p>Build intelligent systems with machine learning</p>
-                </div>
-                <div class="card-body">
-                    <ul class="skills-list">
-                        <li>Machine Learning</li>
-                        <li>Deep Learning</li>
-                        <li>Data Processing</li>
-                        <li>Model Deployment</li>
-                    </ul>
-                    <button class="btn">View Roadmap</button>
-                </div>
-            </div>
-
-            <!-- Back-End Roadmap Card -->
-            <div class="roadmap-card" onclick="openModal('backend')">
-                <div class="card-header" style="background: linear-gradient(135deg, #4361ee, #3f37c9);">
-                    <h2>Back-End Developer</h2>
-                    <p>Build server-side logic and APIs</p>
-                </div>
-                <div class="card-body">
-                    <ul class="skills-list">
-                        <li>Server-Side Programming</li>
-                        <li>Database Management</li>
-                        <li>API Development</li>
-                        <li>Authentication</li>
-                    </ul>
-                    <button class="btn">View Roadmap</button>
-                </div>
-            </div>
-
-            <!-- Front-End Roadmap Card -->
-            <div class="roadmap-card" onclick="openModal('frontend')">
-                <div class="card-header" style="background: linear-gradient(135deg, #4cc9f0, #4895ef);">
-                    <h2>Front-End Developer</h2>
-                    <p>Create interactive user interfaces</p>
-                </div>
-                <div class="card-body">
-                    <ul class="skills-list">
-                        <li>HTML/CSS/JavaScript</li>
-                        <li>React/Angular/Vue</li>
-                        <li>Responsive Design</li>
-                        <li>State Management</li>
-                    </ul>
-                    <button class="btn">View Roadmap</button>
-                </div>
-            </div>
-
-            <!-- Data Analyst Roadmap Card -->
-            <div class="roadmap-card" onclick="openModal('data')">
-                <div class="card-header" style="background: linear-gradient(135deg, #f8961e, #f3722c);">
-                    <h2>Data Analyst</h2>
-                    <p>Transform data into actionable insights</p>
-                </div>
-                <div class="card-body">
-                    <ul class="skills-list">
-                        <li>SQL & Excel</li>
-                        <li>Data Visualization</li>
-                        <li>Statistical Analysis</li>
-                        <li>Python/R</li>
-                    </ul>
-                    <button class="btn">View Roadmap</button>
-                </div>
-            </div>
-
-            <!-- Graphic Design Roadmap Card -->
-            <div class="roadmap-card" onclick="openModal('design')">
-                <div class="card-header" style="background: linear-gradient(135deg, #43aa8b, #577590);">
-                    <h2>Graphic Design</h2>
-                    <p>Create compelling visual communications</p>
-                </div>
-                <div class="card-body">
-                    <ul class="skills-list">
-                        <li>Adobe Creative Suite</li>
-                        <li>Typography & Layout</li>
-                        <li>Brand Identity</li>
-                        <li>UI/UX Principles</li>
-                    </ul>
-                    <button class="btn">View Roadmap</button>
-                </div>
-            </div>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="study-timer">مود الدراسة</button>
+            <button class="tab-btn" data-tab="mind-map">الخريطة الذهنية</button>
         </div>
-    </div>
 
-    <!-- Modals -->
-    <div class="modal" id="devops-modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('devops')">&times;</button>
-            <h2>DevOps Engineer Roadmap</h2>
-            <p>Learn to automate software development and deployment processes, manage infrastructure, and implement CI/CD pipelines.</p>
-            
-            <div class="roadmap-steps">
-                <div class="roadmap-step">
-                    <h3><span>1</span> Version Control</h3>
-                    <div class="step-content">
-                        <p>Master Git for tracking changes and collaborating on code.</p>
-                        <ul>
-                            <li>Git basics (clone, commit, push, pull)</li>
-                            <li>Branching and merging strategies</li>
-                            <li>Resolving conflicts</li>
-                        </ul>
-                        <div class="tools">
-                            <span class="tool-tag">Git</span>
-                            <span class="tool-tag">GitHub</span>
-                            <span class="tool-tag">GitLab</span>
-                        </div>
-                    </div>
+        <div class="tab-content active" id="study-timer">
+            <div class="timer-container">
+                <h2>مود الدراسة</h2>
+                <p>استخدم تقنية البومودورو لزيادة تركيزك</p>
+                
+                <div class="timer-display" id="timer">25:00</div>
+                
+                <div id="timer-status" class="timer-status study-status">وقت الدراسة</div>
+                
+                <div class="timer-controls">
+                    <button id="start-btn" class="btn btn-primary">
+                        <span>بدء</span>
+                    </button>
+                    <button id="pause-btn" class="btn btn-outline" disabled>
+                        <span>إيقاف مؤقت</span>
+                    </button>
+                    <button id="reset-btn" class="btn btn-outline">
+                        <span>إعادة تعيين</span>
+                    </button>
                 </div>
                 
-                <div class="roadmap-step">
-                    <h3><span>2</span> CI/CD Pipelines</h3>
-                    <div class="step-content">
-                        <p>Automate testing and deployment for reliable releases.</p>
-                        <ul>
-                            <li>Jenkins, GitHub Actions, CircleCI</li>
-                            <li>Build pipelines and workflows</li>
-                            <li>Rollback strategies</li>
-                        </ul>
-                        <div class="tools">
-                            <span class="tool-tag">Jenkins</span>
-                            <span class="tool-tag">GitHub Actions</span>
-                            <span class="tool-tag">ArgoCD</span>
-                        </div>
-                    </div>
+                <div class="sound-control">
+                    <label for="sound-toggle">موسيقى تركيز:</label>
+                    <input type="checkbox" id="sound-toggle" checked>
+                    <audio id="focus-sound" loop>
+                        <!-- Actual relaxing study music -->
+                        <source src="https://assets.mixkit.co/music/preview/mixkit-studying-brain-1230.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
                 </div>
                 
-                <div class="roadmap-step">
-                    <h3><span>3</span> Containerization</h3>
-                    <div class="step-content">
-                        <p>Package applications with dependencies for consistency.</p>
-                        <ul>
-                            <li>Docker fundamentals</li>
-                            <li>Creating and managing containers</li>
-                            <li>Docker Compose for multi-container apps</li>
-                        </ul>
-                        <div class="tools">
-                            <span class="tool-tag">Docker</span>
-                            <span class="tool-tag">Podman</span>
-                            <span class="tool-tag">Containerd</span>
-                        </div>
+                <div class="timer-settings">
+                    <div class="setting">
+                        <label for="study-time">وقت الدراسة (دقائق)</label>
+                        <input type="number" id="study-time" min="1" max="60" value="25">
                     </div>
+                    <div class="setting">
+                        <label for="break-time">وقت الراحة (دقائق)</label>
+                        <input type="number" id="break-time" min="1" max="30" value="5">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="mind-map">
+            <div class="mindmap-container">
+                <h2>مولد الخريطة الذهنية</h2>
+                <p>ارسم أفكارك وخطتك الدراسية بطريقة بصرية منظمة</p>
+                
+                <div class="mindmap-tools">
+                    <button id="add-root-btn" class="btn btn-primary">إضافة عقدة رئيسية</button>
+                    <button id="save-map-btn" class="btn btn-outline">حفظ الخريطة</button>
+                    <button id="load-map-btn" class="btn btn-outline">تحميل الخريطة</button>
+                    <button id="export-pdf-btn" class="btn btn-outline">تحميل PDF</button>
+                    <button id="clear-map-btn" class="btn btn-outline">مسح الكل</button>
+                    <button id="zoom-in-btn" class="btn btn-outline">تكبير +</button>
+                    <button id="zoom-out-btn" class="btn btn-outline">تصغير -</button>
                 </div>
                 
-                <div class="roadmap-step">
-                    <h3><span>4</span> Cloud Platforms</h3>
-                    <div class="step-content">
-                        <p>Deploy and manage applications in the cloud.</p>
-                        <ul>
-                            <li>AWS, Azure, or GCP fundamentals</li>
-                            <li>Compute, storage, and networking services</li>
-                            <li>Serverless architectures</li>
-                        </ul>
-                        <div class="tools">
-                            <span class="tool-tag">AWS</span>
-                            <span class="tool-tag">Azure</span>
-                            <span class="tool-tag">Google Cloud</span>
-                        </div>
-                    </div>
+                <div class="mindmap-area-container">
+                    <div class="mindmap-area" id="mindmap-area"></div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal" id="ai-modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('ai')">&times;</button>
-            <h2>AI Engineer Roadmap</h2>
-            <p>Learn to design, build, and deploy artificial intelligence and machine learning systems.</p>
-            
-            <div class="roadmap-steps">
-                <div class="roadmap-step">
-                    <h3><span>1</span> Mathematics Fundamentals</h3>
-                    <div class="step-content">
-                        <p>Build the mathematical foundation for AI.</p>
-                        <ul>
-                            <li>Linear algebra (vectors, matrices)</li>
-                            <li>Calculus (derivatives, gradients)</li>
-                            <li>Probability and statistics</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="roadmap-step">
-                    <h3><span>2</span> Programming & Data</h3>
-                    <div class="step-content">
-                        <p>Master Python and data manipulation.</p>
-                        <ul>
-                            <li>Python programming</li>
-                            <li>NumPy, Pandas for data processing</li>
-                            <li>Data cleaning and preprocessing</li>
-                        </ul>
-                        <div class="tools">
-                            <span class="tool-tag">Python</span>
-                            <span class="tool-tag">Pandas</span>
-                            <span class="tool-tag">NumPy</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="roadmap-step">
-                    <h3><span>3</span> Machine Learning</h3>
-                    <div class="step-content">
-                        <p>Learn core ML algorithms and techniques.</p>
-                        <ul>
-                            <li>Supervised and unsupervised learning</li>
-                            <li>Model evaluation and validation</li>
-                            <li>Feature engineering</li>
-                        </ul>
-                        <div class="tools">
-                            <span class="tool-tag">Scikit-learn</span>
-                            <span class="tool-tag">XGBoost</span>
-                            <span class="tool-tag">AutoML</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="roadmap-step">
-                    <h3><span>4</span> Deep Learning</h3>
-                    <div class="step-content">
-                        <p>Build neural networks for complex tasks.</p>
-                        <ul>
-                            <li>Neural network architectures</li>
-                            <li>TensorFlow and PyTorch frameworks</li>
-                            <li>Computer vision and NLP</li>
-                        </ul>
-                        <div class="tools">
-                            <span class="tool-tag">TensorFlow</span>
-                            <span class="tool-tag">PyTorch</span>
-                            <span class="tool-tag">Keras</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-   <!-- Back-End Developer Modal -->
-<div class="modal" id="backend-modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('backend')">&times;</button>
-        <h2>Back-End Developer Roadmap</h2>
-        <p>Learn to build server-side logic, APIs, and manage databases for web applications.</p>
-        
-        <div class="roadmap-steps">
-            <div class="roadmap-step">
-                <h3><span>1</span> Programming Languages</h3>
-                <div class="step-content">
-                    <p>Master a server-side programming language.</p>
-                    <ul>
-                        <li>JavaScript (Node.js)</li>
-                        <li>Python (Django, Flask)</li>
-                        <li>Java (Spring Boot)</li>
-                        <li>PHP (Laravel)</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Node.js</span>
-                        <span class="tool-tag">Python</span>
-                        <span class="tool-tag">Java</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>2</span> Databases</h3>
-                <div class="step-content">
-                    <p>Learn to work with both SQL and NoSQL databases.</p>
-                    <ul>
-                        <li>Relational databases (MySQL, PostgreSQL)</li>
-                        <li>NoSQL databases (MongoDB, Redis)</li>
-                        <li>ORM frameworks (Sequelize, TypeORM)</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">MySQL</span>
-                        <span class="tool-tag">MongoDB</span>
-                        <span class="tool-tag">PostgreSQL</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>3</span> API Development</h3>
-                <div class="step-content">
-                    <p>Build and consume RESTful and GraphQL APIs.</p>
-                    <ul>
-                        <li>REST principles and best practices</li>
-                        <li>GraphQL schemas and resolvers</li>
-                        <li>Authentication (JWT, OAuth)</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Express</span>
-                        <span class="tool-tag">GraphQL</span>
-                        <span class="tool-tag">Postman</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>4</span> Deployment & DevOps</h3>
-                <div class="step-content">
-                    <p>Deploy and maintain back-end services.</p>
-                    <ul>
-                        <li>Containerization with Docker</li>
-                        <li>Server management (Nginx, Apache)</li>
-                        <li>CI/CD pipelines</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Docker</span>
-                        <span class="tool-tag">Nginx</span>
-                        <span class="tool-tag">GitHub Actions</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Front-End Developer Modal -->
-<div class="modal" id="frontend-modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('frontend')">&times;</button>
-        <h2>Front-End Developer Roadmap</h2>
-        <p>Learn to build interactive, responsive user interfaces with modern web technologies.</p>
-        
-        <div class="roadmap-steps">
-            <div class="roadmap-step">
-                <h3><span>1</span> HTML & CSS</h3>
-                <div class="step-content">
-                    <p>Master the building blocks of web development.</p>
-                    <ul>
-                        <li>HTML5 semantic elements</li>
-                        <li>CSS Flexbox and Grid</li>
-                        <li>Responsive design principles</li>
-                        <li>CSS preprocessors (SASS, LESS)</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">HTML5</span>
-                        <span class="tool-tag">CSS3</span>
-                        <span class="tool-tag">SASS</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>2</span> JavaScript</h3>
-                <div class="step-content">
-                    <p>Add interactivity to your web pages.</p>
-                    <ul>
-                        <li>ES6+ features (arrow functions, destructuring)</li>
-                        <li>DOM manipulation</li>
-                        <li>Asynchronous programming (Promises, async/await)</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">JavaScript</span>
-                        <span class="tool-tag">TypeScript</span>
-                        <span class="tool-tag">ESLint</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>3</span> Front-End Frameworks</h3>
-                <div class="step-content">
-                    <p>Build scalable applications with modern frameworks.</p>
-                    <ul>
-                        <li>React.js (Hooks, Context API)</li>
-                        <li>Vue.js (Composition API)</li>
-                        <li>Angular (Components, Services)</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">React</span>
-                        <span class="tool-tag">Vue</span>
-                        <span class="tool-tag">Angular</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>4</span> Advanced Topics</h3>
-                <div class="step-content">
-                    <p>Take your skills to the next level.</p>
-                    <ul>
-                        <li>State management (Redux, Vuex)</li>
-                        <li>Testing (Jest, Cypress)</li>
-                        <li>Performance optimization</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Redux</span>
-                        <span class="tool-tag">Jest</span>
-                        <span class="tool-tag">Webpack</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Data Analyst Modal -->
-<div class="modal" id="data-modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('data')">&times;</button>
-        <h2>Data Analyst Roadmap</h2>
-        <p>Learn to collect, process, and analyze data to extract meaningful insights.</p>
-        
-        <div class="roadmap-steps">
-            <div class="roadmap-step">
-                <h3><span>1</span> Excel & Spreadsheets</h3>
-                <div class="step-content">
-                    <p>Master data manipulation in spreadsheets.</p>
-                    <ul>
-                        <li>Advanced formulas (VLOOKUP, INDEX-MATCH)</li>
-                        <li>Pivot tables and data visualization</li>
-                        <li>Power Query for ETL</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Excel</span>
-                        <span class="tool-tag">Google Sheets</span>
-                        <span class="tool-tag">Power Query</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>2</span> SQL</h3>
-                <div class="step-content">
-                    <p>Query and analyze data from databases.</p>
-                    <ul>
-                        <li>SELECT statements with filtering</li>
-                        <li>JOINs and subqueries</li>
-                        <li>Window functions</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">PostgreSQL</span>
-                        <span class="tool-tag">MySQL</span>
-                        <span class="tool-tag">BigQuery</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>3</span> Data Visualization</h3>
-                <div class="step-content">
-                    <p>Communicate insights effectively.</p>
-                    <ul>
-                        <li>Dashboard design principles</li>
-                        <li>Tableau and Power BI</li>
-                        <li>Python libraries (Matplotlib, Seaborn)</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Tableau</span>
-                        <span class="tool-tag">Power BI</span>
-                        <span class="tool-tag">Matplotlib</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>4</span> Python/R for Analysis</h3>
-                <div class="step-content">
-                    <p>Automate analysis with programming.</p>
-                    <ul>
-                        <li>Pandas for data manipulation</li>
-                        <li>Statistical analysis</li>
-                        <li>Basic machine learning concepts</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Python</span>
-                        <span class="tool-tag">Pandas</span>
-                        <span class="tool-tag">R</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Graphic Design Modal -->
-<div class="modal" id="design-modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('design')">&times;</button>
-        <h2>Graphic Design Roadmap</h2>
-        <p>Learn to create visual concepts that communicate ideas and inspire audiences.</p>
-        
-        <div class="roadmap-steps">
-            <div class="roadmap-step">
-                <h3><span>1</span> Design Fundamentals</h3>
-                <div class="step-content">
-                    <p>Master the core principles of design.</p>
-                    <ul>
-                        <li>Color theory and typography</li>
-                        <li>Layout and composition</li>
-                        <li>Design psychology</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Adobe Color</span>
-                        <span class="tool-tag">Google Fonts</span>
-                        <span class="tool-tag">Canva</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>2</span> Adobe Creative Suite</h3>
-                <div class="step-content">
-                    <p>Become proficient in industry-standard tools.</p>
-                    <ul>
-                        <li>Photoshop (photo editing)</li>
-                        <li>Illustrator (vector graphics)</li>
-                        <li>InDesign (page layout)</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Photoshop</span>
-                        <span class="tool-tag">Illustrator</span>
-                        <span class="tool-tag">InDesign</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>3</span> Branding & Identity</h3>
-                <div class="step-content">
-                    <p>Develop cohesive visual identities.</p>
-                    <ul>
-                        <li>Logo design</li>
-                        <li>Brand guidelines</li>
-                        <li>Marketing collateral</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Figma</span>
-                        <span class="tool-tag">Adobe XD</span>
-                        <span class="tool-tag">BrandBird</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="roadmap-step">
-                <h3><span>4</span> UI/UX Principles</h3>
-                <div class="step-content">
-                    <p>Expand into digital product design.</p>
-                    <ul>
-                        <li>Wireframing and prototyping</li>
-                        <li>User research methods</li>
-                        <li>Design systems</li>
-                    </ul>
-                    <div class="tools">
-                        <span class="tool-tag">Figma</span>
-                        <span class="tool-tag">Sketch</span>
-                        <span class="tool-tag">Adobe XD</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
     <footer>
         <div class="container">
-            <p>© 2025 sage .</p>
+            <p>© 2023 أكاديمية التميز الدراسي. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
 
     <script>
-        function openModal(roadmap) {
-            document.getElementById(`${roadmap}-modal`).classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+
+        // Tab Switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Study Timer Functionality
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('start-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const timerStatus = document.getElementById('timer-status');
+        const soundToggle = document.getElementById('sound-toggle');
+        const focusSound = document.getElementById('focus-sound');
+        const studyTimeInput = document.getElementById('study-time');
+        const breakTimeInput = document.getElementById('break-time');
+
+        let timer;
+        let isRunning = false;
+        let isStudyTime = true;
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+        let studyDuration = 25 * 60;
+        let breakDuration = 5 * 60;
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        function closeModal(roadmap) {
-            document.getElementById(`${roadmap}-modal`).classList.remove('active');
-            document.body.style.overflow = 'auto';
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                startBtn.disabled = true;
+                pauseBtn.disabled = false;
+                
+                // Play sound if enabled
+                if (soundToggle.checked) {
+                    focusSound.play().catch(e => console.log("Audio play failed:", e));
+                }
+                
+                timer = setInterval(() => {
+                    timeLeft--;
+                    updateDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        // Play sound if enabled
+                        if (soundToggle.checked) {
+                            focusSound.play().catch(e => console.log("Audio play failed:", e));
+                        }
+                        
+                        if (isStudyTime) {
+                            // Switch to break time
+                            isStudyTime = false;
+                            timeLeft = breakDuration;
+                            timerStatus.textContent = "وقت الراحة";
+                            timerStatus.className = "timer-status break-status";
+                            timerDisplay.classList.add('pulse');
+                        } else {
+                            // Switch to study time
+                            isStudyTime = true;
+                            timeLeft = studyDuration;
+                            timerStatus.textContent = "وقت الدراسة";
+                            timerStatus.className = "timer-status study-status";
+                            timerDisplay.classList.remove('pulse');
+                        }
+                        
+                        startTimer();
+                    }
+                }, 1000);
+            }
         }
 
-        // Close modal when clicking outside content
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
-                document.body.style.overflow = 'auto';
+        function pauseTimer() {
+            clearInterval(timer);
+            isRunning = false;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            focusSound.pause();
+            timerDisplay.classList.remove('pulse');
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            isStudyTime = true;
+            studyDuration = parseInt(studyTimeInput.value) * 60;
+            breakDuration = parseInt(breakTimeInput.value) * 60;
+            timeLeft = studyDuration;
+            updateDisplay();
+            timerStatus.textContent = "وقت الدراسة";
+            timerStatus.className = "timer-status study-status";
+            focusSound.pause();
+            focusSound.currentTime = 0;
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        soundToggle.addEventListener('change', () => {
+            if (soundToggle.checked && isRunning) {
+                focusSound.play().catch(e => console.log("Audio play failed:", e));
+            } else {
+                focusSound.pause();
+            }
+        });
+
+        studyTimeInput.addEventListener('change', () => {
+            studyDuration = parseInt(studyTimeInput.value) * 60;
+            if (!isRunning && isStudyTime) {
+                timeLeft = studyDuration;
+                updateDisplay();
+            }
+        });
+
+        breakTimeInput.addEventListener('change', () => {
+            breakDuration = parseInt(breakTimeInput.value) * 60;
+            if (!isRunning && !isStudyTime) {
+                timeLeft = breakDuration;
+                updateDisplay();
+            }
+        });
+
+        // Initialize timer
+        resetTimer();
+
+        // Mind Map Functionality
+        const mindmapAreaContainer = document.querySelector('.mindmap-area-container');
+        const mindmapArea = document.getElementById('mindmap-area');
+        const addRootBtn = document.getElementById('add-root-btn');
+        const saveMapBtn = document.getElementById('save-map-btn');
+        const loadMapBtn = document.getElementById('load-map-btn');
+        const exportPdfBtn = document.getElementById('export-pdf-btn');
+        const clearMapBtn = document.getElementById('clear-map-btn');
+        const zoomInBtn = document.getElementById('zoom-in-btn');
+        const zoomOutBtn = document.getElementById('zoom-out-btn');
+
+        let nodes = [];
+        let connections = [];
+        let selectedNode = null;
+        let offsetX, offsetY;
+        let zoomLevel = 1;
+        let posX = 0, posY = 0;
+        let isDragging = false;
+        let startX, startY;
+
+        class MindMapNode {
+            constructor(x, y, text = 'اضغط للتعديل', parentId = null) {
+                this.id = Date.now() + Math.floor(Math.random() * 1000);
+                this.x = x;
+                this.y = y;
+                this.text = text;
+                this.parentId = parentId;
+                this.element = null;
+                this.connectors = [];
+                this.createNodeElement();
+            }
+
+            createNodeElement() {
+                const node = document.createElement('div');
+                node.className = 'mindmap-node';
+                node.style.left = `${this.x}px`;
+                node.style.top = `${this.y}px`;
+                node.setAttribute('data-id', this.id);
+
+                node.innerHTML = `
+                    <textarea class="node-text">${this.text}</textarea>
+                    <div class="node-actions">
+                        <button class="node-btn add-child-btn">+</button>
+                        <button class="node-btn delete-node-btn">×</button>
+                    </div>
+                    <div class="node-connector right"></div>
+                    <div class="node-connector left"></div>
+                `;
+
+                // Store connector elements
+                this.connectors = [
+                    node.querySelector('.node-connector.right'),
+                    node.querySelector('.node-connector.left')
+                ];
+
+                // Add connector event listeners
+                this.connectors[0].addEventListener('mousedown', (e) => this.startConnection(e, 'right'));
+                this.connectors[1].addEventListener('mousedown', (e) => this.startConnection(e, 'left'));
+
+                node.addEventListener('mousedown', (e) => {
+                    if (e.target.classList.contains('node-text') || 
+                        e.target.classList.contains('node-btn') ||
+                        e.target.classList.contains('node-connector')) return;
+                    
+                    this.startDrag(e);
+                });
+
+                const addChildBtn = node.querySelector('.add-child-btn');
+                addChildBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.addChildNode();
+                });
+
+                const deleteBtn = node.querySelector('.delete-node-btn');
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.deleteNode();
+                });
+
+                const textarea = node.querySelector('.node-text');
+                textarea.addEventListener('input', (e) => {
+                    this.text = e.target.value;
+                });
+
+                textarea.addEventListener('mousedown', (e) => {
+                    e.stopPropagation();
+                });
+
+                this.element = node;
+                mindmapArea.appendChild(node);
+                this.selectNode();
+            }
+
+            startConnection(e, side) {
+                e.stopPropagation();
+                const tempConnection = document.createElement('div');
+                tempConnection.className = 'mindmap-connection highlight';
+                mindmapArea.appendChild(tempConnection);
+
+                const startX = side === 'right' ? 
+                    this.x + this.element.offsetWidth - posX : 
+                    this.x - posX;
+                const startY = this.y + this.element.offsetHeight / 2 - posY;
+
+                document.addEventListener('mousemove', moveTempConnection);
+                document.addEventListener('mouseup', finishConnection);
+
+                function moveTempConnection(e) {
+                    const endX = e.clientX - mindmapAreaContainer.getBoundingClientRect().left;
+                    const endY = e.clientY - mindmapAreaContainer.getBoundingClientRect().top;
+
+                    const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+                    const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+                    
+                    tempConnection.style.width = `${length}px`;
+                    tempConnection.style.left = `${startX}px`;
+                    tempConnection.style.top = `${startY}px`;
+                    tempConnection.style.transform = `rotate(${angle}deg)`;
+                }
+
+                function finishConnection(e) {
+                    document.removeEventListener('mousemove', moveTempConnection);
+                    document.removeEventListener('mouseup', finishConnection);
+                    mindmapArea.removeChild(tempConnection);
+
+                    const targetElement = document.elementFromPoint(e.clientX, e.clientY);
+                    if (targetElement && targetElement.closest('.mindmap-node')) {
+                        const targetNode = nodes.find(n => n.element === targetElement.closest('.mindmap-node'));
+                        if (targetNode && targetNode.id !== this.id) {
+                            // Connect the nodes
+                            this.createConnection(targetNode);
+                        }
+                    }
+                }
+            }
+
+            startDrag(e) {
+                selectedNode = this;
+                offsetX = e.clientX - this.x;
+                offsetY = e.clientY - this.y;
+
+                document.addEventListener('mousemove', this.dragNode);
+                document.addEventListener('mouseup', this.stopDrag);
+            }
+
+            dragNode = (e) => {
+                if (!selectedNode) return;
+                
+                this.x = e.clientX - offsetX - posX;
+                this.y = e.clientY - offsetY - posY;
+                
+                this.element.style.left = `${this.x}px`;
+                this.element.style.top = `${this.y}px`;
+                
+                this.updateConnections();
+            }
+
+            stopDrag = () => {
+                document.removeEventListener('mousemove', this.dragNode);
+                document.removeEventListener('mouseup', this.stopDrag);
+                selectedNode = null;
+            }
+
+            selectNode() {
+                document.querySelectorAll('.mindmap-node').forEach(n => {
+                    n.classList.remove('selected');
+                });
+                this.element.classList.add('selected');
+                selectedNode = this;
+            }
+
+            addChildNode() {
+                const childX = this.x + 200;
+                const childY = this.y;
+                const childNode = new MindMapNode(childX, childY, 'عقدة جديدة', this.id);
+                nodes.push(childNode);
+                this.createConnection(childNode);
+            }
+
+            createConnection(childNode) {
+                // Check if connection already exists
+                const existingConnection = connections.find(conn => 
+                    conn.getAttribute('data-parent') == this.id && 
+                    conn.getAttribute('data-child') == childNode.id);
+                
+                if (existingConnection) return;
+
+                const connection = document.createElement('div');
+                connection.className = 'mindmap-connection';
+                connection.setAttribute('data-parent', this.id);
+                connection.setAttribute('data-child', childNode.id);
+                
+                this.updateConnectionElement(connection, childNode);
+                mindmapArea.appendChild(connection);
+                connections.push(connection);
+
+                // Add hover effect to show connection handle
+                connection.addEventListener('mouseenter', () => {
+                    const handle = connection.querySelector('.connection-handle');
+                    if (handle) handle.style.opacity = '1';
+                });
+
+                connection.addEventListener('mouseleave', () => {
+                    const handle = connection.querySelector('.connection-handle');
+                    if (handle && !handle.matches(':hover')) handle.style.opacity = '0';
+                });
+            }
+
+            updateConnectionElement(connection, childNode) {
+                const parentRect = this.element.getBoundingClientRect();
+                const childRect = childNode.element.getBoundingClientRect();
+                
+                const parentX = parentRect.left + parentRect.width - mindmapAreaContainer.getBoundingClientRect().left;
+                const parentY = parentRect.top + parentRect.height / 2 - mindmapAreaContainer.getBoundingClientRect().top;
+                
+                const childX = childRect.left - mindmapAreaContainer.getBoundingClientRect().left;
+                const childY = childRect.top + childRect.height / 2 - mindmapAreaContainer.getBoundingClientRect().top;
+                
+                const length = Math.sqrt(Math.pow(childX - parentX, 2) + Math.pow(childY - parentY, 2));
+                const angle = Math.atan2(childY - parentY, childX - parentX) * 180 / Math.PI;
+                
+                connection.style.width = `${length}px`;
+                connection.style.left = `${parentX}px`;
+                connection.style.top = `${parentY}px`;
+                connection.style.transform = `rotate(${angle}deg)`;
+
+                // Add connection handle in the middle
+                if (!connection.querySelector('.connection-handle')) {
+                    const handle = document.createElement('div');
+                    handle.className = 'connection-handle';
+                    handle.addEventListener('mousedown', (e) => {
+                        e.stopPropagation();
+                        this.startConnectionDrag(connection, e);
+                    });
+                    connection.appendChild(handle);
+                }
+
+                // Position the handle
+                const handle = connection.querySelector('.connection-handle');
+                const midX = parentX + length/2 * Math.cos(angle * Math.PI / 180);
+                const midY = parentY + length/2 * Math.sin(angle * Math.PI / 180);
+                handle.style.left = `${length/2}px`;
+            }
+
+            startConnectionDrag(connection, e) {
+                e.preventDefault();
+                const parentId = connection.getAttribute('data-parent');
+                const childId = connection.getAttribute('data-child');
+                const parentNode = nodes.find(n => n.id == parentId);
+                const childNode = nodes.find(n => n.id == childId);
+
+                if (!parentNode || !childNode) return;
+
+                document.addEventListener('mousemove', dragConnection);
+                document.addEventListener('mouseup', stopConnectionDrag);
+
+                function dragConnection(e) {
+                    // Calculate new angle for the connection
+                    const parentRect = parentNode.element.getBoundingClientRect();
+                    const parentX = parentRect.left + parentRect.width - mindmapAreaContainer.getBoundingClientRect().left;
+                    const parentY = parentRect.top + parentRect.height / 2 - mindmapAreaContainer.getBoundingClientRect().top;
+                    
+                    const mouseX = e.clientX - mindmapAreaContainer.getBoundingClientRect().left;
+                    const mouseY = e.clientY - mindmapAreaContainer.getBoundingClientRect().top;
+                    
+                    // Move child node to follow the new angle
+                    const angle = Math.atan2(mouseY - parentY, mouseX - parentX);
+                    const length = Math.sqrt(Math.pow(childNode.x - parentNode.x, 2) + Math.pow(childNode.y - parentNode.y, 2));
+                    
+                    childNode.x = parentNode.x + length * Math.cos(angle);
+                    childNode.y = parentNode.y + length * Math.sin(angle);
+                    
+                    childNode.element.style.left = `${childNode.x}px`;
+                    childNode.element.style.top = `${childNode.y}px`;
+                    
+                    parentNode.updateConnectionElement(connection, childNode);
+                    childNode.updateConnections();
+                }
+
+                function stopConnectionDrag() {
+                    document.removeEventListener('mousemove', dragConnection);
+                    document.removeEventListener('mouseup', stopConnectionDrag);
+                }
+            }
+
+            updateConnections() {
+                connections.forEach(conn => {
+                    const parentId = conn.getAttribute('data-parent');
+                    const childId = conn.getAttribute('data-child');
+                    
+                    if (parentId == this.id) {
+                        const childNode = nodes.find(n => n.id == childId);
+                        if (childNode) {
+                            this.updateConnectionElement(conn, childNode);
+                        }
+                    } else if (childId == this.id) {
+                        const parentNode = nodes.find(n => n.id == parentId);
+                        if (parentNode) {
+                            parentNode.updateConnectionElement(conn, this);
+                        }
+                    }
+                });
+            }
+
+            deleteNode() {
+                // Remove all child connections first
+                const childConnections = connections.filter(conn => 
+                    conn.getAttribute('data-parent') == this.id);
+                
+                childConnections.forEach(conn => {
+                    mindmapArea.removeChild(conn);
+                    connections = connections.filter(c => c !== conn);
+                });
+                
+                // Remove this node's connection to its parent if exists
+                const parentConnection = connections.find(conn => 
+                    conn.getAttribute('data-child') == this.id);
+                
+                if (parentConnection) {
+                    mindmapArea.removeChild(parentConnection);
+                    connections = connections.filter(c => c !== parentConnection);
+                }
+                
+                // Remove the node
+                mindmapArea.removeChild(this.element);
+                nodes = nodes.filter(n => n.id !== this.id);
+                
+                // Delete all children recursively
+                const children = nodes.filter(n => n.parentId == this.id);
+                children.forEach(child => {
+                    const childNode = nodes.find(n => n.id == child.id);
+                    if (childNode) {
+                        childNode.deleteNode();
+                    }
+                });
+            }
+        }
+
+        function addRootNode() {
+            const centerX = (mindmapAreaContainer.offsetWidth / 2 - 60) / zoomLevel;
+            const centerY = (mindmapAreaContainer.offsetHeight / 2 - 30) / zoomLevel;
+            const rootNode = new MindMapNode(centerX, centerY, 'الفكرة الرئيسية');
+            nodes.push(rootNode);
+        }
+
+        function saveMindMap() {
+            const mapData = nodes.map(node => ({
+                id: node.id,
+                x: node.x,
+                y: node.y,
+                text: node.text,
+                parentId: node.parentId
+            }));
+            
+            localStorage.setItem('savedMindMap', JSON.stringify(mapData));
+            alert('تم حفظ الخريطة الذهنية بنجاح!');
+        }
+
+        function loadMindMap() {
+            const savedData = localStorage.getItem('savedMindMap');
+            if (!savedData) {
+                alert('لا يوجد خريطة محفوظة!');
+                return;
+            }
+            
+            clearMindMap();
+            
+            try {
+                const mapData = JSON.parse(savedData);
+                
+                // First create all nodes
+                mapData.forEach(nodeData => {
+                    const node = new MindMapNode(nodeData.x, nodeData.y, nodeData.text, nodeData.parentId);
+                    node.id = nodeData.id; // Keep the original ID
+                    nodes.push(node);
+                });
+                
+                // Then create connections based on parent-child relationships
+                mapData.forEach(nodeData => {
+                    if (nodeData.parentId) {
+                        const parentNode = nodes.find(n => n.id == nodeData.parentId);
+                        const childNode = nodes.find(n => n.id == nodeData.id);
+                        
+                        if (parentNode && childNode) {
+                            parentNode.createConnection(childNode);
+                        }
+                    }
+                });
+                
+                alert('تم تحميل الخريطة الذهنية بنجاح!');
+            } catch (e) {
+                alert('حدث خطأ أثناء تحميل الخريطة: ' + e.message);
+            }
+        }
+
+        function exportToPDF() {
+            // Hide all buttons and connectors
+            const elementsToHide = [
+                ...document.querySelectorAll('.mindmap-tools'),
+                ...document.querySelectorAll('.node-actions'),
+                ...document.querySelectorAll('.node-connector'),
+                ...document.querySelectorAll('.connection-handle')
+            ];
+            
+            const originalDisplays = elementsToHide.map(el => el.style.display);
+            elementsToHide.forEach(el => el.style.display = 'none');
+            
+            // Capture the mindmap area
+            html2canvas(mindmapAreaContainer, {
+                scale: 2,
+                logging: false,
+                useCORS: true,
+                allowTaint: true,
+                scrollX: -window.scrollX,
+                scrollY: -window.scrollY
+            }).then(canvas => {
+                // Restore the original display
+                elementsToHide.forEach((el, i) => {
+                    el.style.display = originalDisplays[i];
+                });
+                
+                // Create PDF
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'mm'
+                });
+                
+                const imgWidth = 280; // A4 width in mm (landscape)
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                
+                pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+                pdf.save('الخريطة_الذهنية.pdf');
+            }).catch(err => {
+                console.error('Error generating PDF:', err);
+                elementsToHide.forEach((el, i) => {
+                    el.style.display = originalDisplays[i];
+                });
+                alert('حدث خطأ أثناء إنشاء ملف PDF');
+            });
+        }
+
+        function clearMindMap() {
+            // Create a copy of nodes array to avoid modification during iteration
+            const nodesCopy = [...nodes];
+            nodesCopy.forEach(node => {
+                if (node.element && node.element.parentNode) {
+                    mindmapArea.removeChild(node.element);
+                }
+            });
+            
+            // Create a copy of connections array
+            const connectionsCopy = [...connections];
+            connectionsCopy.forEach(conn => {
+                if (conn.parentNode) {
+                    mindmapArea.removeChild(conn);
+                }
+            });
+            
+            nodes = [];
+            connections = [];
+            selectedNode = null;
+        }
+
+        function zoomMindMap(direction) {
+            const scaleFactor = direction === 'in' ? 1.1 : 0.9;
+            zoomLevel *= scaleFactor;
+            
+            mindmapArea.style.transform = `translate(${posX}px, ${posY}px) scale(${zoomLevel})`;
+        }
+
+        // Initialize mindmap with one root node
+        addRootNode();
+
+        // Event listeners
+        addRootBtn.addEventListener('click', addRootNode);
+        saveMapBtn.addEventListener('click', saveMindMap);
+        loadMapBtn.addEventListener('click', loadMindMap);
+        exportPdfBtn.addEventListener('click', exportToPDF);
+        clearMapBtn.addEventListener('click', clearMindMap);
+        zoomInBtn.addEventListener('click', () => zoomMindMap('in'));
+        zoomOutBtn.addEventListener('click', () => zoomMindMap('out'));
+
+        // Panning functionality
+        mindmapAreaContainer.addEventListener('mousedown', (e) => {
+            if (e.target === mindmapAreaContainer) {
+                isDragging = true;
+                startX = e.clientX - posX;
+                startY = e.clientY - posY;
+                mindmapAreaContainer.style.cursor = 'grabbing';
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            posX = e.clientX - startX;
+            posY = e.clientY - startY;
+            
+            mindmapArea.style.transform = `translate(${posX}px, ${posY}px) scale(${zoomLevel})`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            mindmapAreaContainer.style.cursor = 'default';
+        });
+
+        // Prevent default behavior for mindmap area
+        mindmapArea.addEventListener('mousedown', (e) => {
+            if (e.target === mindmapArea) {
+                e.preventDefault();
+                // Deselect all nodes when clicking on empty area
+                document.querySelectorAll('.mindmap-node').forEach(n => {
+                    n.classList.remove('selected');
+                });
+                selectedNode = null;
             }
         });
     </script>
